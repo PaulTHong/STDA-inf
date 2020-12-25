@@ -4,12 +4,12 @@ nothing/
 AdaIN/__pycache__/
 
 # dataset
-data/STL10-data/train/
-data/STL10-data/test/
-data/CALTECH256/train/
-data/CALTECH256/test/
-data/CIFAR10/train/
-data/CIFAR10/test/
+data/STL10-data/train/*
+data/STL10-data/test/*
+data/CALTECH256/train/*
+data/CALTECH256/test/*
+data/CIFAR10/train/*
+data/CIFAR10/test/*
 data/CIFAR10/cifar-10-batches-py/ 
 data/CIFAR10/cifar-10-python.tar.gz 
 
