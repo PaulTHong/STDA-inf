@@ -33,16 +33,58 @@ Style transfer for data augmentation: through in-data training and fusion classi
 - `AdaIN/`: Style transfer module, refer to the Github implementation [pytorch-AdaIN](https://github.com/naoto0804/pytorch-AdaIN). 
   * `list_transfer_interface.py`: Interface of *list* mode of style transfer.
   * `dict_transfer_interface.py`: Interface of *dict* mode of style transfer.
-  * `models/` save trained models of AdaIN, you can download from the cloud disk [AdaIN-models](https://disk.pku.edu.cn:443/link/F212AA16F0ECC045040A457B28DC65DD) with password `EpHy`. Since the released pytorch version is 0.4.0 and our adopted version is 1.1.0, we resave the model from `*.t7` to `*.pth` (from torch to pytorch).
+  * `models/:` save trained models of AdaIN, you can download from the cloud disk [AdaIN-models](https://disk.pku.edu.cn:443/link/F212AA16F0ECC045040A457B28DC65DD) with password `EpHy`. Since the released pytorch version is 0.4.0 and our adopted version is 1.1.0, we resave the model from `*.t7` to `*.pth` (from torch to pytorch).
   * Other files are the same as the original released version with part removed.
 
 ## Start it
 ### Requirements
+- `pytorch=1.1.0`
+- `torchvison=0.3.0`
+- `numpy`, `cv2`, `PIL`, `tqdm`, etc.
 
+### Train
+Take the STL10 dataset as example, train the **baseline** model with 2 gpus (the `GPU_DEVICE` assigns the gpu id and the `train_mode` chooses the train mode as `baseline` or `style_aug`): choose `train_mode` as `baseline` in `run.sh`, then 
+```
+bash run.sh train STL10
+```
+which will execute the order:
+```
+CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u train.py --dataset STL10 \
+    --train_data_path ./data/STL10-data/train --test_data_path ./data/STL10-data/test \
+    --ckpt_name STL10_baseline.pth --lr 0.001 --milestones 80 120 --gamma 0.1 --max_epoch 150 \
+    --train_batch 256 --test_batch 256 --optim Adam --multi_gpu --train_num_workers 4 \
+    --tra_augment --no_style_aug 2>&1 |tee log/STL10_baseline_train.log
+```
+---
 
+Train the in-data style transferred model of STL10: choose `train_mode` as `style_aug` in `run.sh`, then 
+```
+bash run.sh train STL10
+```
+which will execute the order:
+```
+CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u train.py --dataset STL10 \
+    --train_data_path ./data/STL10-data/train --test_data_path ./data/STL10-data/test \
+    --ckpt_name STL10_in_rand_list_per10_styleaug.pth --lr 0.001 --milestones 80 120 --gamma 0.1 --max_epoch 150 \
+    --train_batch 256 --test_batch 256 --optim Adam --multi_gpu --train_num_workers 0 \
+    --style_path ./data/STL10-data/stl_random_style_list_per10 --transfer_prob 0.3 --style_mode list \
+    --tra_augment 2>&1 |tee log/STL10_in_rand_list_per10_train.log
+```
+
+The training of CALTECH256 and CIFAR10 is similar (not demonstrated in detail), which is executed as:
+```
+bash run.sh train CALTECH256
+bash run.sh train CIFAR10
+```
+
+---
+**Attention**:
 num_workers=0  if it's not 0, the code broadcast error, change it to 0.
 
+### Test
 
 
 
+---
 
+If you have any questions, please contact `paul.ht@pku.edu.cn`.
