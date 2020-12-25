@@ -1,7 +1,7 @@
 '''
-Cross test with different trained models and test samples of different mode.
+Cross test with different trained models and test samples of different modes.
 samples' mode: base or style-transferred (in or out or mixed)
-model: base trained or in-data style trained or out-data style trained
+model: base trained or in-data style-aug trained or out-data style-aug trained
 
 Only implemented for STL-10.
 '''

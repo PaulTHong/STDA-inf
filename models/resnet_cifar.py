@@ -1,7 +1,7 @@
 '''
 ResNet50 for CIFAR-10 in Pytorch.
 Compared to ResNet50 for ImageNet, change the conv1 from (3, 7, 2, 3) to (3, 3, 1, 1),
-remove the MaxPool after conv1, and change the kernel size of AvePool before fc from 7 to 4.
+remove the MaxPool after conv1, and change the kernel size of AvgPool before fc from 7 to 4.
 '''
 import torch
 import torch.nn as nn

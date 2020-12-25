@@ -1,13 +1,12 @@
 """
-ResNet in PyTorch.
-Implementation for Manifold Mixup.
+PyTorch implementation for ResNet with Manifold Mixup.
 """
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import random
 import sys
-sys.path.insert(1, '/home/hongt/Style_aug_released')
+sys.path.insert(1, '/home/hongt/STDA-inf')
 from utils import mixup_data
 
 

@@ -1,7 +1,7 @@
 '''
 ResNet50 for STL-10 in Pytorch.
 Compared to ResNet50 for ImageNet, remove the MaxPool after conv1,
-and change the kernel size of AvePool before fc from 7 to 6.
+and change the kernel size of AvgPool before fc from 7 to 6.
 '''
 import torch
 import torch.nn as nn

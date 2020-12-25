@@ -1,7 +1,6 @@
 '''
 Modify based on pytorch source code. Inherit the class: torch.utils.data.Dataset
-Add style transfer module into dataset.
-And extend the dataset path from single to a list.
+Add style transfer module into dataset preprocess. And extend the dataset path from single to a list.
 '''
 import torch
 from torch.utils.data import Dataset

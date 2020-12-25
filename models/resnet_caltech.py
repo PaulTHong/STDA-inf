@@ -1,6 +1,6 @@
 '''
 ResNet50 for CALTECH-256 in Pytorch.
-The same to ResNet50 for ImageNet.
+The same as ResNet50 for ImageNet.
 '''
 import torch
 import torch.nn as nn
