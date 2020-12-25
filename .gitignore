@@ -1,7 +1,7 @@
 *.pyc
-__pycache/
+__pycache__/
 nothing/
-AdaIN/__pycache/
+AdaIN/__pycache__/
 
 # dataset
 data/STL10-data/train/
