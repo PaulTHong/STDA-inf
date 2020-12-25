@@ -2,7 +2,6 @@
 Style Augmentation: Train ResNet50 with PyTorch.
 On different datasets: STL-10, CALTECH-256, CIFAR-10, etc.
 """
-
 import torch
 import torch.nn as nn
 import torch.optim as optim

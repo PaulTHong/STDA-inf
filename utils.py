@@ -5,7 +5,6 @@
     - progress_bar: progress bar mimic xlua.progress.
     and other augmentation methods such as mixup, cutout, etc.
 '''
-
 import os
 import sys
 import time
