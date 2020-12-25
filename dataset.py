@@ -4,6 +4,7 @@ Add style transfer module into dataset.
 And extend the dataset path from single to a list.
 '''
 
+
 import torch
 from torch.utils.data import Dataset
 from torchvision import datasets
