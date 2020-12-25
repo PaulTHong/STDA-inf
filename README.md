@@ -9,11 +9,13 @@ Style transfer for data augmentation: through in-data training and fusion classi
 
 - `fusion_test.py`: Main function of fusion test.
 
-- `dataset.py`: Modified on the base of official Pytorch implementation `torchvision.datasets.ImageFolder`. Add style transfer module and enlarge the input path from one to several.
+- `dataset.py`: Modified on the base of official Pytorch implementation `torch.utils.data.Dataset` and `torchvision.datasets.ImageFolder`. Add style transfer module into the data preprocess and enlarge the input path from single one to several (a list).
 
 - `utils.py`: Some utilized class or function: class of StyleTransform, function for Mixup augmentation, display bar, etc.
 
-- `models/`: Models of various networks such as resnet, VGG. This project mainly adopts `ResNet50`. And there is a little difference between the `ResNet50` for different datasets. STL10, CALTECH256, and CIFAR10 correspond to `resnet.py`, `resnet_caltech.py`, and `resnet_cifar.py` respectively. ResNet50 for CALTECH256 is the same as ImageNet; ResNet50 for STL10 removes the first maxpool layer, changes the kernel_size of avgpool layer from 7 to 6; ResNet50 for CIFAR10 (refer to the Github implementation [pytorch-cifar](https://github.com/kuangliu/pytorch-cifar)) removes the first maxpool layer, changes the (kernel_size, stride, padding) of conv1 layer from (7, 2, 3) to (3, 1, 1), and changes the kernel_size of avgpool layer from 7 to 4.
+- `models/`: Models of various networks such as resnet, VGG. This project mainly adopts `ResNet50`. And there is a little difference between the `ResNet50` for different datasets. STL10, CALTECH256, and CIFAR10 correspond to `resnet.py`, `resnet_caltech.py`, and `resnet_cifar.py` respectively. ResNet50 for CALTECH256 is the same as ImageNet; ResNet50 for STL10 removes the MaxPool layer after conv1, changes the kernel_size of AvgPool layer before fc from 7 to 6; ResNet50 for CIFAR10 (refer to the Github implementation [pytorch-cifar](https://github.com/kuangliu/pytorch-cifar)) removes the first MaxPool layer after conv1, changes the (kernel_size, stride, padding) of conv1 layer from (7, 2, 3) to (3, 1, 1), and changes the kernel_size of AvgPool layer before fc from 7 to 4.
+
+`manifold_resnet.py` is written for Manifold Mixup augmentation
 
 - `checkpoint/`: Store checkpoints of trained models.
 
@@ -57,7 +59,7 @@ CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u train.py --dataset STL10 \
 ```
 ---
 
-Train the **in-data style transferred** model of STL10: choose `train_mode` as `style_aug` in `run.sh`, then run:
+Train the **in-data style-aug** model of STL10: choose `train_mode` as `style_aug` in `run.sh`, then run:
 ```
 bash run.sh train STL10
 ```
@@ -103,7 +105,7 @@ done
 ```
 
 ### Others
-As for the `extension/*.py`, you can run them in the path of `STDA-inf/`, but remember to change the path (`sys.path.insert(1, [PATH])`) in `*.py` to your own path.
+As for the `extension/*.py`, you can run them in the path of `STDA-inf/`, but remember to change the path (`sys.path.insert(1, [PATH])`) in `*.py` to your own path. `extension/add_aug_train.py` calls `models/manifold_resnet.py`, which also needs to change the path. Global path is recommended (may avoid small bugs) though not superior in code portability.
 
 ---
 
