@@ -22,13 +22,13 @@ Style transfer for data augmentation: through in-data training and fusion classi
 - `data/`: Store datasets.
   * `cal_mean_std.py`: Calculate the mean and std of dataset.
   * `choose_style.py`: Random choose in-data style images from the training dataset to save in the form of *list* or *dict*.
-  * [STL10-data](https://cs.stanford.edu/~acoates/stl10/), [CALTECH256](http://www.vision.caltech.edu/Image_Datasets/Caltech256/), [CIFAR10](http://www.cs.toronto.edu/~kriz/cifar.html) represent different datasets. As for the training and test datasets, you can download from the cloud disk [classification](https://disk.pku.edu.cn:443/link/F0B1ED091A1D5901B06358213A7CD533) with password `73f1`, unzip them and save as `train` `test` subfolder in the corresponding data path. CALTECH256 selects 60 images per class as training and remained images as test. CIFAR10 is downloaded from the official website and saved as images and its class_to_idx is not the same as `torchvision.datasets.CIFAR10`. The `check_channel.py` finds the 2-channel images of CALTECH256.
+  * [STL10-data](https://cs.stanford.edu/~acoates/stl10/), [CALTECH256](http://www.vision.caltech.edu/Image_Datasets/Caltech256/), [CIFAR10](http://www.cs.toronto.edu/~kriz/cifar.html) represent different datasets. As for the training and test datasets, you can download from the cloud disk [classification](https://disk.pku.edu.cn:443/link/F0B1ED091A1D5901B06358213A7CD533) with password `73f1`, unzip them and save as `train` / `test` subfolder in the corresponding data path. CALTECH256 selects 60 images per class as training and remained images as test. CIFAR10 is downloaded from the official website and saved as images and its `class_to_idx` is not the same as `torchvision.datasets.CIFAR10`. The `check_channel.py` finds the 2-channel images of CALTECH256.
   
 - `extension/`: Some extended experiments.
   * `add_aug_train.py`: Add some augmentation methods such as Mixup, Cutout, CutMix, and Manifold Mixup.
   * `FGSM_test.py`: FGSM robustness experiment.
   * `cross_test.py`: Test different test samples (original samples or style transferred samples) with different trained models (base trained or out-data style trained or in-data style trained).
-  * `tSNE.py`: Reduce dimension of dataset with tSNE method and visualize.
+  * `tSNE.py`: Reduce the dimension of dataset with tSNE method and visualize its distribution.
 
 - `AdaIN/`: Style transfer module, refer to the Github implementation [pytorch-AdaIN](https://github.com/naoto0804/pytorch-AdaIN). 
   * `list_transfer_interface.py`: Interface of *list* mode of style transfer.
@@ -71,7 +71,7 @@ CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u train.py --dataset STL10 \
     --tra_augment 2>&1 |tee log/STL10_in_rand_list_per10_train.log
 ```
 
-The training of CALTECH256 and CIFAR10 is similar (not demonstrated in detail), which is executed as:
+The training of CALTECH256 and CIFAR10 is similar (so not demonstrated in detail), which is executed as:
 ```
 bash run.sh train CALTECH256
 bash run.sh train CIFAR10
@@ -79,7 +79,7 @@ bash run.sh train CIFAR10
 
 ---
 **Attention**:
-Since there are two models during our proposed method, one for style transfer and one for classification, we need to take care of the correspondence between model, data and gpu id when adopting multi gpus. There is a parameter called `num_workers` in `torch.utils.data.DataLoader`, which represents the process number when loading dat. The default value `0` means only one main process and several processes like `4` may be faster. However, if it broadcasts bugs like `CudaInitializationError` etc., you can change the `num_workers` of `trainloader` from `4` to `0`, then everything will go peacefully.
+Since there are two deep learning models in our proposed method, one for style transfer and one for classification, we need to take care of the correspondence between model, data and gpu id when adopting multi gpus. There is a parameter called `num_workers` in `torch.utils.data.DataLoader`, which represents the process number when loading data. The default value `0` means only one main process and several processes like `4` may be faster. However, if it broadcasts bugs like `CUDA Initialization Error` etc., you can change the `num_workers` of `trainloader` from `4` to `0`, then everything will go peacefully.
 
 ### Test
 Still take the STL10 dataset as example, fusion test for 15 rounds with the trained in-data style-aug model, run:  
@@ -103,7 +103,7 @@ done
 ```
 
 ### Others
-As for the `extension/*.py`, you can run them in the path of `STDA-inf/`, but remember to change the path (`sys.path.insert(1, [PATH])`) in `*.py` to your own path. `extension/add_aug_train.py` calls `models/manifold_resnet.py`, which also needs to change the path. Global path is recommended (may avoid small bugs) though not superior in code portability.
+As for the `extension/*.py`, you can run them in the path of `STDA-inf/`, but remember to change the path `sys.path.insert(1, [PATH])` in `*.py` to your own path. `extension/add_aug_train.py` calls `models/manifold_resnet.py`, which also needs to change the path. Global path is recommended (may avoid small bugs) though not superior in code portability.
 
 ---
 
