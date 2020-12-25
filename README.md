@@ -13,20 +13,18 @@ Style transfer for data augmentation: through in-data training and fusion classi
 
 - `utils.py`: Some utilized class or function: class of StyleTransform, function for Mixup augmentation, display bar, etc.
 
-- `models/`: Models of various networks such as resnet, VGG. This project mainly adopts `ResNet50`. And there is a little difference between the `ResNet50` for different datasets. STL10, CALTECH256, and CIFAR10 correspond to `resnet.py`, `resnet_caltech.py`, and `resnet_cifar.py` respectively. ResNet50 for CALTECH256 is the same as ImageNet; ResNet50 for STL10 removes the MaxPool layer after conv1, changes the kernel_size of AvgPool layer before fc from 7 to 6; ResNet50 for CIFAR10 (refer to the Github implementation [pytorch-cifar](https://github.com/kuangliu/pytorch-cifar)) removes the first MaxPool layer after conv1, changes the (kernel_size, stride, padding) of conv1 layer from (7, 2, 3) to (3, 1, 1), and changes the kernel_size of AvgPool layer before fc from 7 to 4.
-
-`manifold_resnet.py` is written for Manifold Mixup augmentation
+- `models/`: Models of various networks such as resnet, VGG. This project mainly adopts `ResNet50`. And there is a little difference between the `ResNet50` for different datasets. STL10, CALTECH256, and CIFAR10 correspond to `resnet.py`, `resnet_caltech.py`, and `resnet_cifar.py` respectively. ResNet50 for CALTECH256 is the same as ImageNet; ResNet50 for STL10 removes the MaxPool layer after conv1, changes the kernel_size of AvgPool layer before fc from 7 to 6; ResNet50 for CIFAR10 (refer to the Github implementation [pytorch-cifar](https://github.com/kuangliu/pytorch-cifar)) removes the first MaxPool layer after conv1, changes the (kernel_size, stride, padding) of conv1 layer from (7, 2, 3) to (3, 1, 1), and changes the kernel_size of AvgPool layer before fc from 7 to 4. `manifold_resnet.py` is written for Manifold Mixup augmentation
 
 - `checkpoint/`: Store checkpoints of trained models.
 
 - `log/`: Store logs of training and test. Subfolder `style_test_info` stores the information of different rounds during fusion test.   
 
-- `data/`: 
+- `data/`: Store datasets.
   * `cal_mean_std.py`: Calculate the mean and std of dataset.
   * `choose_style.py`: Random choose in-data style images from the training dataset to save in the form of *list* or *dict*.
   * [STL10-data](https://cs.stanford.edu/~acoates/stl10/), [CALTECH256](http://www.vision.caltech.edu/Image_Datasets/Caltech256/), [CIFAR10](http://www.cs.toronto.edu/~kriz/cifar.html) represent different datasets. As for the training and test datasets, you can download from the cloud disk [classification](https://disk.pku.edu.cn:443/link/F0B1ED091A1D5901B06358213A7CD533) with password `73f1`, unzip them and save as `train` `test` subfolder in the corresponding data path. CALTECH256 selects 60 images per class as training and remained images as test. CIFAR10 is downloaded from the official website and saved as images and its class_to_idx is not the same as `torchvision.datasets.CIFAR10`. The `check_channel.py` finds the 2-channel images of CALTECH256.
   
-- `extension/`:
+- `extension/`: Some extended experiments.
   * `add_aug_train.py`: Add some augmentation methods such as Mixup, Cutout, CutMix, and Manifold Mixup.
   * `FGSM_test.py`: FGSM robustness experiment.
   * `cross_test.py`: Test different test samples (original samples or style transferred samples) with different trained models (base trained or out-data style trained or in-data style trained).
