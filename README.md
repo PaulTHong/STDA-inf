@@ -43,7 +43,7 @@ Style transfer for data augmentation: through in-data training and fusion classi
 - `numpy`, `cv2`, `PIL`, `tqdm`, etc.
 
 ### Train
-Take the STL10 dataset as example, train the **baseline** model with 2 gpus (the `GPU_DEVICE` assigns the gpu id and the `train_mode` chooses the train mode as `baseline` or `style_aug`): choose `train_mode` as `baseline` in `run.sh`, then 
+Take the STL10 dataset as example, train the **baseline** model with 2 gpus (the `GPU_DEVICE` assigns the gpu id and the `train_mode` chooses the train mode as `baseline` or `style_aug`): choose `train_mode` as `baseline` in `run.sh`, then run:
 ```
 bash run.sh train STL10
 ```
@@ -57,7 +57,7 @@ CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u train.py --dataset STL10 \
 ```
 ---
 
-Train the in-data style transferred model of STL10: choose `train_mode` as `style_aug` in `run.sh`, then 
+Train the **in-data style transferred** model of STL10: choose `train_mode` as `style_aug` in `run.sh`, then run:
 ```
 bash run.sh train STL10
 ```
@@ -79,11 +79,31 @@ bash run.sh train CIFAR10
 
 ---
 **Attention**:
-num_workers=0  if it's not 0, the code broadcast error, change it to 0.
+Since there are two models during our proposed method, one for style transfer and one for classification, we need to take care of the correspondence between model, data and gpu id when adopting multi gpus. There is a parameter called `num_workers` in `torch.utils.data.DataLoader`, which represents the process number when loading dat. The default value `0` means only one main process and several processes like `4` may be faster. However, if it broadcasts bugs like `CudaInitializationError` etc., you can change the `num_workers` of `trainloader` from `4` to `0`, then everything will go peacefully.
 
 ### Test
+Still take the STL10 dataset as example, fusion test for 15 rounds with the trained in-data style-aug model, run:  
+```
+bash run.sh test STL10
+```
+which will execute the order:
+```
+for ((i=1; i<=1; i++)); do
+    CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u fusion_test.py --base_test_path ./data/STL10-data/test \
+    --include_base_test --style_test_mode list --style_path ./data/STL10-data/stl_random_style_list_per10 \
+    --ckpt_name best_STL10_in_rand_list_per10_styleaug.pth --transform_round $i
+     2>&1 |tee log/STL10_in_rand_list_per10_fusion_test.log
+done
+for ((i=2; i<=15; i++)); do
+    CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u fusion_test.py --base_test_path ./data/STL10-data/test \
+    --include_base_test --style_test_mode list --style_path ./data/STL10-data/stl_random_style_list_per10 \
+    --ckpt_name best_STL10_in_rand_list_per10_styleaug.pth --transform_round $i --load_style_test
+    2>&1 |tee -a log/STL10_in_rand_list_per10_fusion_test.log
+done
+```
 
-
+### Others
+As for the `extension/*.py`, you can run them in the path of `STDA-inf/`, but remember to change the path (`sys.path.insert(1, [PATH])`) in `*.py` to your own path.
 
 ---
 
