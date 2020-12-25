@@ -4,8 +4,8 @@ nothing/
 AdaIN/__pycache/
 
 # dataset
-data/STL10/train/
-data/STL10/test/
+data/STL10-data/train/
+data/STL10-data/test/
 data/CALTECH256/train/
 data/CALTECH256/test/
 data/CIFAR10/train/
