@@ -2,10 +2,10 @@
 Style transfer for data augmentation: through in-data training and fusion classification.
 
 
-## code structure
-- run.sh: Run script, implemented with different mode (train or test) and different dataset (STL10 or CALTECH256 or CIFAR10).
+## Code structure
+- `run.sh`: Run script, implemented with different mode (train or test) and different dataset (STL10 or CALTECH256 or CIFAR10).
 
-- train.py: The main function of training.
+- `train.py`: The main function of training.
 
 - fusion_test.py: The main function of fusion test.
 
