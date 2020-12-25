@@ -12,7 +12,7 @@ data/CIFAR10/train/*
 data/CIFAR10/test/*
 data/CIFAR10/cifar-10-batches-py/ 
 data/CIFAR10/cifar-10-python.tar.gz 
-data/tar
+# data/tar
 
 AdaIN/models/*.t7
 AdaIN/models/*.pth
