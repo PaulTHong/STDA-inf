@@ -1,11 +1,10 @@
 # [STDA-inf: Style Transfer for Data Augmentation Through In-data Training and Fusion Inference](https://link.springer.com/chapter/10.1007%2F978-3-030-84529-2_7) (ICIC 2021)
 Official Implementation.
 
-By Tao Hong **et. al.**,
+By *Tao Hong et al.*,
 Department of Information and Computational Sciences, School of Mathematical Sciences and LMAM, Peking University, Beijing 100871, China
 
-This code is fulfilled 
-
+---
 ## Code structure
 - `run.sh`: Run script, implemented with different modes (train or test) and different datasets (STL10 or CALTECH256 or CIFAR10).
 
@@ -25,7 +24,7 @@ This code is fulfilled
 
 - `data/`: Store datasets.
   * `cal_mean_std.py`: Calculate the mean and std of dataset.
-  * `choose_style.py`: Random choose in-data style images from the training dataset to save in the form of *list* or *dict*.
+  * `choose_style.py`: Random choose in-data style images from the training dataset to save in the form of *list (intra-class)* or *dict (inter-class)*.
   * [STL10-data](https://cs.stanford.edu/~acoates/stl10/), [CALTECH256](http://www.vision.caltech.edu/Image_Datasets/Caltech256/), [CIFAR10](http://www.cs.toronto.edu/~kriz/cifar.html) represent different datasets. As for the training and test datasets, you can download from the cloud disk [classification](https://disk.pku.edu.cn:443/link/F0B1ED091A1D5901B06358213A7CD533) with password `73f1`, unzip them and save as `train` / `test` subfolder in the corresponding data path. CALTECH256 selects 60 images per class as training and remained images as test. CIFAR10 is downloaded from the official website and saved as images and its `class_to_idx` is not the same as `torchvision.datasets.CIFAR10`. The `check_channel.py` finds the 2-channel images of CALTECH256.
   
 - `extension/`: Some extended experiments.
