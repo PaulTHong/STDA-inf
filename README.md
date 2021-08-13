@@ -110,4 +110,4 @@ As for the `extension/*.py`, you can run them in the path of `STDA-inf/`, but re
 
 ---
 
-If you have any questions, please contact `paul.ht@pku.edu.cn`.
+If you have any question, please contact `paul.ht@pku.edu.cn`.
