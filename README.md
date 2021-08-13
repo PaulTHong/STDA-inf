@@ -41,8 +41,8 @@ Department of Information and Computational Sciences, School of Mathematical Sci
 
 ## Start it
 ### Requirements
-- `pytorch=1.1.0`
-- `torchvison=0.3.0`
+- `pytorch>=1.1.0`
+- `torchvison>=0.3.0`
 - `numpy`, `cv2`, `PIL`, `tqdm`, etc.
 
 ### Train
