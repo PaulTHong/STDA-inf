@@ -1,6 +1,10 @@
-# STDA-inf
-Style transfer for data augmentation: through in-data training and fusion classification.
+# [STDA-inf: Style Transfer for Data Augmentation Through In-data Training and Fusion Inference](https://link.springer.com/chapter/10.1007%2F978-3-030-84529-2_7) (ICIC 2021)
+Official Implementation.
 
+By Tao Hong **et. al.**,
+Department of Information and Computational Sciences, School of Mathematical Sciences and LMAM, Peking University, Beijing 100871, China
+
+This code is fulfilled 
 
 ## Code structure
 - `run.sh`: Run script, implemented with different modes (train or test) and different datasets (STL10 or CALTECH256 or CIFAR10).
