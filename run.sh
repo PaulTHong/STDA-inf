@@ -92,12 +92,12 @@ elif [ $1 = "test" ]; then
   ;;
   CALTECH256)
     for ((i=1; i<=1; i++)); do
-        CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u fusion_test.py --base_test_path ./data/CALTECH256/test \
+        CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u fusion_test.py --dataset CALTECH256 --base_test_path ./data/CALTECH256/test \
         --include_base_test --style_test_mode list --style_path ./data/CALTECH256/cal_random_style_list_100 \
         --ckpt_name best_CALTECH256_in_rand_list_100_styleaug.pth --transform_round $i --content_size 128 --style_size 128
     done
     for ((i=2; i<=15; i++)); do
-        CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u fusion_test.py --base_test_path ./data/CALTECH256/test \
+        CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u fusion_test.py --dataset CALTECH256 --base_test_path ./data/CALTECH256/test \
         --include_base_test --style_test_mode list --style_path ./data/CALTECH256/cal_random_style_list_100 \
         --ckpt_name best_CALTECH256_in_rand_list_100_styleaug.pth --transform_round $i \
          --content_size 128 --style_size 128 --load_style_test
@@ -105,12 +105,12 @@ elif [ $1 = "test" ]; then
   ;;
   CIFAR10)
     for ((i=1; i<=1; i++)); do
-        CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u fusion_test.py --base_test_path ./data/CIFAR10/test \
+        CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u fusion_test.py --dataset CIFAR10 --base_test_path ./data/CIFAR10/test \
         --include_base_test --style_test_mode list --style_path ./data/CIFAR10/in_random_style_list_per10 \
         --ckpt_name best_CIFAR10_in_rand_list_per10_styleaug.pth --transform_round $i --content_size 128 --style_size 128 
     done
     for ((i=2; i<=15; i++)); do
-        CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u fusion_test.py --base_test_path ./data/CIFAR10/test \
+        CUDA_VISIBLE_DEVICES=$GPU_DEVICE python -u fusion_test.py --dataset C --base_test_path ./data/CIFAR10/test \
         --include_base_test --style_test_mode list --style_path ./data/CIFAR10/in_random_style_list_per10 \
         --ckpt_name best_CIFAR10_in_rand_list_per10_styleaug.pth --transform_round $i \
         --content_size 128 --style_size 128 --load_style_test
