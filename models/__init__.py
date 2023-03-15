@@ -16,5 +16,5 @@ from .efficientnet import *
 
 from .resnet_cifar import *
 from .resnet_caltech import *
-from .resnet_stl_add_maxpool import *
+# from .resnet_stl_add_maxpool import *
 
